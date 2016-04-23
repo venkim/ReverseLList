@@ -1,0 +1,64 @@
+package com.venkat.revllist;
+
+public class RevLList {
+
+	class Node {
+		int data;
+		Node next;
+		public Node(int val, Node ptr){
+			this.data = val;
+			this.next = ptr;
+		}
+	}
+	
+	Node head;
+	/*
+	 * reverse -- recursively recurse a linked list
+	 */
+	public static Node reverse(Node curr){
+		if ( curr == null || curr.next == null ){
+			return (curr);
+		}
+		System.out.println("curr data is " + curr.data);
+		Node nPrev = reverse(curr.next);
+		System.out.println("nPrev data is " + nPrev.data);
+		curr.next.next = curr;
+		curr.next = null;
+		return (nPrev);
+
+	}
+	
+	public static void printNode(Node curr){
+		System.out.println("  " + curr.data);
+		if (curr.next == null){
+			return ;
+		} else {
+			printNode(curr.next);
+		}
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		RevLList rlist = new RevLList() ;
+		Node head = rlist.new Node (1, null);
+		Node shead = head; // saved for a reason
+		
+		Node p = head;
+		for(int i = 2 ; i < 11 ; i++){
+			Node q = rlist.new Node(i,p);
+			p = q;
+		}
+		head = p;
+		
+		try {
+		printNode(head);
+		
+		head = reverse(head);
+		
+		printNode(head);
+		} catch (Exception ee){
+			System.out.println("Exception details while reversing. " + ee.getMessage() + " cause " + ee.getCause());
+		}
+		
+	}
+
+}
